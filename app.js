@@ -99,14 +99,14 @@ function renderToday() {
   const todayStr = formatDateInput(now);
   els.todayDate.textContent = formatJapaneseDate(todayStr);
   els.todayDateShort.textContent = formatEditorialDate(todayStr);
-  els.heroEntryCount.textContent = String(state.entries.length).padStart(3,'0');
+  els.heroEntryCount.textContent = state.entries.length ? String(state.entries.length).padStart(2,'0') : '—';
 
   const todayEntries = sortEntries(state.entries.filter(e=>e.date===todayStr));
   els.todayEntries.innerHTML = todayEntries.length
     ? todayEntries.map((e,i)=>dayCardHtml(e,i)).join('')
     : `<div class="empty-editorial">
         <div class="empty-type"><span class="ghost-no">00</span><h3>今日には、<br>まだ見出しがない。</h3></div>
-        <div class="empty-action"><p>日記みたいに一日をまとめなくていい。<br>残したい瞬間がひとつあれば、それで十分。</p><button data-go-record><span>今日を残す</span><span>↗</span></button></div>
+        <div class="empty-action"><p>日記みたいに一日をまとめなくていい。<br>残したい瞬間がひとつあれば、それで十分。</p><span class="empty-hint">USE + TO ADD A DAY</span></div>
       </div>`;
 
   const same = sortEntries(state.entries.filter(e=>{
@@ -120,7 +120,7 @@ function renderToday() {
 
 function renderArchive() {
   const entries=sortEntries(state.entries);
-  els.entryCount.textContent=String(entries.length).padStart(3,'0');
+  els.entryCount.textContent=entries.length ? `${entries.length} DAYS` : 'NO DAYS';
   els.archiveGrid.innerHTML=entries.length
     ? entries.map(e=>`<article class="archive-item" data-entry-id="${e.id}"><div class="archive-image"><img src="${e.photo}" alt="${escapeHtml(e.caption)}"></div><div class="archive-copy"><strong>${escapeHtml(e.caption)}</strong><span>${formatEditorialDate(e.date)}</span></div></article>`).join('')
     : `<div class="archive-empty"><button data-go-record>最初の一日を置く ↗</button></div>`;
