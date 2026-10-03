@@ -1,9 +1,9 @@
 {
-  "name": "○○した日",
-  "short_name": "した日",
+  "name": "○○した日。",
+  "short_name": "した日。",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f6f1e8",
-  "theme_color": "#f6f1e8",
+  "background_color": "#f0efe9",
+  "theme_color": "#f0efe9",
   "lang": "ja"
 }
