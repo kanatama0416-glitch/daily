@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f1e8" />
+  <title>○○した日</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">日記を書くほどじゃない日を、残しておく。</p>
+        <h1>○○した日</h1>
+      </div>
+      <button class="icon-button" id="quickAddBtn" aria-label="記録を追加">＋</button>
+    </header>
+
+    <main>
+      <section class="view active" id="todayView" data-view="today">
+        <div class="section-head">
+          <div>
+            <p class="label">TODAY</p>
+            <h2 id="todayTitle">今日</h2>
+          </div>
+          <p class="date-text" id="todayDate"></p>
+        </div>
+        <div id="todayEntries" class="stack"></div>
+        <div class="memory-block">
+          <div class="section-head compact">
+            <div><p class="label">MEMORY</p><h2>前のこの日</h2></div>
+          </div>
+          <div id="sameDayEntries" class="stack"></div>
+        </div>
+      </section>
+
+      <section class="view" id="recordView" data-view="record">
+        <div class="record-intro">
+          <p class="label">NEW DAY</p>
+          <h2>今日あった、ひとつのこと。</h2>
+          <p>日記みたいにまとめなくていい。写真を1枚選んで、名前をつけるだけ。</p>
+        </div>
+        <form id="entryForm" class="entry-form">
+          <label class="photo-picker" id="photoPicker">
+            <input id="photoInput" type="file" accept="image/*" capture="environment" />
+            <img id="photoPreview" alt="選択した写真" hidden />
+            <div id="photoPlaceholder" class="photo-placeholder">
+              <span class="photo-plus">＋</span><strong>写真を選ぶ</strong><small>撮る / ライブラリから選ぶ</small>
+            </div>
+          </label>
+          <div class="field-block">
+            <label for="captionInput">今日をひとことで</label>
+            <input id="captionInput" maxlength="60" autocomplete="off" placeholder="海で変な石を拾った日" />
+            <div class="input-meta"><span>長く書かなくて大丈夫。</span><span><b id="captionCount">0</b>/60</span></div>
+          </div>
+          <div class="field-block small-field"><label for="dateInput">日付</label><input id="dateInput" type="date" /></div>
+          <button class="primary-button" type="submit">この日に置いておく</button>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
+      </section>
+
+      <section class="view" id="calendarView" data-view="calendar">
+        <div class="calendar-toolbar">
+          <button class="text-button" id="prevMonthBtn" aria-label="前の月">←</button>
+          <div class="calendar-title-wrap"><p class="label">CALENDAR</p><h2 id="calendarTitle"></h2></div>
+          <button class="text-button" id="nextMonthBtn" aria-label="次の月">→</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true"><span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span></div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+        <div id="calendarDayEntries" class="calendar-day-entries"></div>
+      </section>
+
+      <section class="view" id="archiveView" data-view="archive">
+        <div class="section-head"><div><p class="label">ARCHIVE</p><h2>これまでの「した日」</h2></div><p id="entryCount" class="date-text"></p></div>
+        <div id="archiveGrid" class="archive-grid"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="メインナビゲーション">
+      <button class="nav-item active" data-target="today"><span>◌</span><small>今日</small></button>
+      <button class="nav-item" data-target="record"><span>＋</span><small>残す</small></button>
+      <button class="nav-item" data-target="calendar"><span>□</span><small>暦</small></button>
+      <button class="nav-item" data-target="archive"><span>▦</span><small>一覧</small></button>
+    </nav>
+  </div>
+  <dialog id="entryDialog" class="entry-dialog"><button class="dialog-close" id="dialogCloseBtn" aria-label="閉じる">×</button><div id="dialogContent"></div></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
